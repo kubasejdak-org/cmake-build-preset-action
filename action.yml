@@ -8,14 +8,14 @@ inputs:
   extraBuildArgs:
     description: Extra arguments to pass to cmake build command
     required: false
-  bindir:
+  artifactBindir:
     description: Path to the binary output directory (relative to build directory)
     required: false
     default: bin
   artifactSuffix:
     description: Suffix appended to the artifact name
     required: false
-  extraArtifactPaths:
+  artifactExtraPaths:
     description: Extra paths to be added to build artifact
     required: false
 
@@ -33,5 +33,5 @@ runs:
       with:
         name: build-${{ inputs.preset }}${{ inputs.artifactSuffix }}
         path: |
-          build/${{ inputs.bindir }}
-          ${{ inputs.extraArtifactPaths }}
+          build/${{ inputs.artifactBindir }}
+          ${{ inputs.artifactExtraPaths }}
