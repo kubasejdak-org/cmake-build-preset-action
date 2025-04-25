@@ -5,13 +5,13 @@ inputs:
   preset:
     description: CMake preset to build
     required: true
+  extraBuildArgs:
+    description: Extra arguments to pass to cmake build command
+    required: false
   bindir:
     description: Path to the binary output directory (relative to build directory)
     required: false
     default: bin
-  extraBuildArgs:
-    description: Extra argumnts to pass to cmake build command
-    required: false
 
 runs:
   using: composite
