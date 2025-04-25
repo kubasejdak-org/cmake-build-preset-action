@@ -5,8 +5,8 @@ inputs:
   preset:
     description: CMake preset to build
     required: true
-  extraBuildArgs:
-    description: Extra arguments to pass to cmake build command
+  cmakeExtraArgs:
+    description: Extra arguments to pass to CMake
     required: false
   artifactBindir:
     description: Path to the binary output directory (relative to build directory)
@@ -27,7 +27,7 @@ runs:
       run: |
         mkdir build
         cd build
-        cmake .. --preset ${{ inputs.preset }} ${{ inputs.extraBuildArgs }}
+        cmake .. --preset ${{ inputs.preset }} ${{ inputs.cmakeExtraArgs }}
         make -j$(nproc)
     - uses: actions/upload-artifact@v4
       with:
