@@ -22,7 +22,7 @@ inputs:
 runs:
   using: composite
   steps:
-    - uses: ../action.yml
+    - uses: kubasejdak-org/cmake-build-preset-action@main
       with:
         preset: ${{ inputs.preset }}
         cmakeExtraArgs: -DWITH_COVERAGE=ON ${{ inputs.cmakeExtraArgs }}
