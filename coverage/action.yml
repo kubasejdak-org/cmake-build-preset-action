@@ -24,7 +24,7 @@ runs:
   steps:
     - name: tell
       shell: bash
-      run: echo "???? ${{ github.action_sha }}"
+      run: echo "???? ${{ github.action_ref }}"
     - uses: kubasejdak-org/cmake-build-preset-action@main
       with:
         preset: ${{ inputs.preset }}
