@@ -22,6 +22,9 @@ inputs:
 runs:
   using: composite
   steps:
+    - name: tell
+      shell: bash
+      run: echo "???? ${{ github.action_sha }}"
     - uses: kubasejdak-org/cmake-build-preset-action@main
       with:
         preset: ${{ inputs.preset }}
