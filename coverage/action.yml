@@ -1,0 +1,33 @@
+name: Build CMake preset with coverage
+description: Build CMake preset with coverage
+
+inputs:
+  preset:
+    description: CMake preset to build
+    required: true
+  cmakeExtraArgs:
+    description: Extra arguments to pass to CMake
+    required: false
+  artifactBindir:
+    description: Path to the binary output directory (relative to build directory)
+    required: false
+    default: bin
+  artifactSuffix:
+    description: Suffix appended to the artifact name
+    required: false
+  artifactExtraPaths:
+    description: Extra paths to be added to build artifact
+    required: false
+
+runs:
+  using: composite
+  steps:
+    - uses: ../
+      with:
+        preset: ${{ inputs.preset }}
+        cmakeExtraArgs: -DWITH_COVERAGE=ON ${{ inputs.cmakeExtraArgs }}
+        artifactBindir: ${{ inputs.artifactBindir }}
+        artifactSuffix: -coverage${{ inputs.artifactSuffix }}
+        artifactExtraPaths: |
+          build/**/*.gcno
+          ${{ inputs.artifactExtraPaths }}
