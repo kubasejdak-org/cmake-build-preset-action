@@ -5,16 +5,20 @@ inputs:
   preset:
     description: CMake preset to build
     required: true
+
   cmakeExtraArgs:
     description: Extra arguments to pass to CMake
     required: false
+
   artifactBindir:
     description: Path to the binary output directory (relative to build directory)
     required: false
     default: bin
+
   artifactSuffix:
     description: Suffix appended to the artifact name
     required: false
+
   artifactExtraPaths:
     description: Extra paths to be added to build artifact
     required: false
@@ -22,14 +26,15 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: build preset
+    - name: Build CMake preset
       shell: bash
       run: |
         mkdir build
         cd build
         cmake .. --preset ${{ inputs.preset }} ${{ inputs.cmakeExtraArgs }}
         make -j$(nproc)
-    - uses: actions/upload-artifact@v4
+
+    - uses: actions/upload-artifact@v6
       with:
         name: build-${{ inputs.preset }}${{ inputs.artifactSuffix }}
         path: |
