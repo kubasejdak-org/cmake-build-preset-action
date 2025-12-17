@@ -39,7 +39,7 @@ runs:
         cmake .. --preset ${{ inputs.preset }} ${{ inputs.cmakeExtraArgs }}
         make -j$(nproc)
 
-    - name: Set artifact name
+    - name: Set build artifact name
       id: set-output
       shell: bash
       run: echo "build-artifact-name=build-${{ inputs.preset }}${{ inputs.artifactSuffix }}" >> $GITHUB_OUTPUT
