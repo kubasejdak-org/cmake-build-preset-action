@@ -23,6 +23,11 @@ inputs:
     description: Extra paths to be added to build artifact
     required: false
 
+outputs:
+  build-artifact-name:
+    description: Name of the uploaded build artifact
+    value: ${{ steps.set-output.outputs.build-artifact-name }}
+
 runs:
   using: composite
   steps:
@@ -34,9 +39,14 @@ runs:
         cmake .. --preset ${{ inputs.preset }} ${{ inputs.cmakeExtraArgs }}
         make -j$(nproc)
 
+    - name: Set artifact name
+      id: set-output
+      shell: bash
+      run: echo "build-artifact-name=build-${{ inputs.preset }}${{ inputs.artifactSuffix }}" >> $GITHUB_OUTPUT
+
     - uses: actions/upload-artifact@v6
       with:
-        name: build-${{ inputs.preset }}${{ inputs.artifactSuffix }}
+        name: ${{ steps.set-output.outputs.build-artifact-name }}
         path: |
           build/${{ inputs.artifactBindir }}
           ${{ inputs.artifactExtraPaths }}
