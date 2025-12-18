@@ -10,7 +10,7 @@ inputs:
     description: Extra arguments to pass to CMake
     required: false
 
-  artifact-bindir:
+  bindir:
     description: Path to the binary output directory (relative to build directory)
     required: false
     default: bin
@@ -39,4 +39,4 @@ runs:
     - uses: actions/upload-artifact@v6
       with:
         name: ${{ steps.set-output.outputs.build-artifact-name }}
-        path: build/${{ inputs.artifact-bindir }}
+        path: build/${{ inputs.bindir }}
