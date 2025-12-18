@@ -6,22 +6,14 @@ inputs:
     description: CMake preset to build
     required: true
 
-  cmakeExtraArgs:
+  cmake-extra-args:
     description: Extra arguments to pass to CMake
     required: false
 
-  artifactBindir:
+  artifact-bindir:
     description: Path to the binary output directory (relative to build directory)
     required: false
     default: bin
-
-  artifactSuffix:
-    description: Suffix appended to the artifact name
-    required: false
-
-  artifactExtraPaths:
-    description: Extra paths to be added to build artifact
-    required: false
 
 outputs:
   build-artifact-name:
@@ -36,17 +28,15 @@ runs:
       run: |
         mkdir build
         cd build
-        cmake .. --preset ${{ inputs.preset }} ${{ inputs.cmakeExtraArgs }}
+        cmake .. --preset ${{ inputs.preset }} ${{ inputs.cmake-extra-args }}
         make -j$(nproc)
 
     - name: Set build artifact name
       id: set-output
       shell: bash
-      run: echo "build-artifact-name=build-${{ inputs.preset }}${{ inputs.artifactSuffix }}" >> $GITHUB_OUTPUT
+      run: echo "build-artifact-name=build-${{ inputs.preset }}" >> $GITHUB_OUTPUT
 
     - uses: actions/upload-artifact@v6
       with:
         name: ${{ steps.set-output.outputs.build-artifact-name }}
-        path: |
-          build/${{ inputs.artifactBindir }}
-          ${{ inputs.artifactExtraPaths }}
+        path: build/${{ inputs.artifact-bindir }}
