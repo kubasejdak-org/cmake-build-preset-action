@@ -36,7 +36,7 @@ runs:
       shell: bash
       run: echo "build-artifact-name=build-${{ inputs.preset }}" >> $GITHUB_OUTPUT
 
-    - uses: actions/upload-artifact@v6
+    - uses: actions/upload-artifact@v7
       with:
         name: ${{ steps.set-output.outputs.build-artifact-name }}
         path: build/${{ inputs.bindir }}
